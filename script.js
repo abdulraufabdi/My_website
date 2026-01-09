@@ -117,42 +117,78 @@ function initPortfolioFilter() {
     });
 }
 
-// Initialize contact form
+// Initialize contact form - UPDATED FOR FORMSPREE
 function initContactForm() {
     const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('form-message');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name') || this.querySelector('input[type="text"]').value;
-            const email = formData.get('email') || this.querySelector('input[type="email"]').value;
-            const subject = formData.get('subject') || this.querySelectorAll('input[type="text"]')[1].value;
-            const message = formData.get('message') || this.querySelector('textarea').value;
-            
-            // Simple validation
-            if (!name || !email || !message) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // In a real application, you would send this data to a server
-            // For this example, we'll just show a success message
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
             
+            // Show loading state
             submitButton.textContent = 'Sending...';
             submitButton.disabled = true;
             
-            // Simulate API call
-            setTimeout(() => {
-                alert(`Thank you ${name}! Your message has been sent. I'll get back to you soon.`);
-                contactForm.reset();
+            if (formMessage) {
+                formMessage.style.display = 'none';
+            }
+            
+            try {
+                const formData = new FormData(this);
+                
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success
+                    if (formMessage) {
+                        formMessage.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+                        formMessage.style.color = '#155724';
+                        formMessage.style.backgroundColor = '#d4edda';
+                        formMessage.style.padding = '10px';
+                        formMessage.style.borderRadius = '4px';
+                        formMessage.style.display = 'block';
+                    } else {
+                        alert('Thank you! Your message has been sent successfully.');
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Error
+                if (formMessage) {
+                    formMessage.textContent = 'Oops! There was an error sending your message. Please try again.';
+                    formMessage.style.color = '#721c24';
+                    formMessage.style.backgroundColor = '#f8d7da';
+                    formMessage.style.padding = '10px';
+                    formMessage.style.borderRadius = '4px';
+                    formMessage.style.display = 'block';
+                } else {
+                    alert('Error sending message. Please try again.');
+                }
+                console.error('Form submission error:', error);
+            } finally {
+                // Reset button
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
-            }, 1500);
+                
+                // Scroll to message
+                if (formMessage && formMessage.style.display === 'block') {
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
         });
     }
 }
