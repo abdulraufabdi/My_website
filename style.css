@@ -812,4 +812,32 @@ p {
         width: 280px;
         height: 280px;
     }
+    /* Add to style.css for form message styling */
+#form-message {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-top: 15px;
+    display: none;
+    font-weight: 500;
+}
+
+/* Add smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Fix for form input names */
+.form-group input[name="name"],
+.form-group input[name="email"],
+.form-group input[name="subject"],
+.form-group textarea[name="message"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
 }
