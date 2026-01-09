@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
+    <!-- Add favicon -->
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/japan.png">
 </head>
 <body>
     <!-- Navigation -->
@@ -48,7 +50,11 @@
                         <div class="floating-element"></div>
                         <div class="floating-element delay-1"></div>
                         <div class="floating-element delay-2"></div>
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Kaito Tanaka" class="profile-img">
+                        <!-- Backup local image or keep Unsplash -->
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" 
+                             alt="Kaito Tanaka" 
+                             class="profile-img"
+                             onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=Kaito'">
                         <div class="kanji-overlay">匠</div>
                     </div>
                 </div>
@@ -145,7 +151,9 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item" data-category="web">
                     <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Zen Garden Website">
+                        <img src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80" 
+                             alt="Zen Garden Website"
+                             onerror="this.src='https://placehold.co/600x400/e74c3c/ffffff?text=Zen+Garden'">
                         <div class="portfolio-overlay">
                             <h3 class="portfolio-title">Zen Garden Co.</h3>
                             <p class="portfolio-category">Web Design</p>
@@ -155,7 +163,9 @@
                 </div>
                 <div class="portfolio-item" data-category="app">
                     <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=869&q=80" alt="Tea App">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=869&q=80" 
+                             alt="Tea App"
+                             onerror="this.src='https://placehold.co/600x400/2c3e50/ffffff?text=Tea+Ceremony+App'">
                         <div class="portfolio-overlay">
                             <h3 class="portfolio-title">Tea Ceremony App</h3>
                             <p class="portfolio-category">Web App</p>
@@ -165,7 +175,9 @@
                 </div>
                 <div class="portfolio-item" data-category="branding">
                     <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Japanese Restaurant">
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=870&q=80" 
+                             alt="Japanese Restaurant"
+                             onerror="this.src='https://placehold.co/600x400/1a1a1a/ffffff?text=Sakura+Restaurant'">
                         <div class="portfolio-overlay">
                             <h3 class="portfolio-title">Sakura Restaurant</h3>
                             <p class="portfolio-category">Branding</p>
@@ -177,7 +189,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section - UPDATED WITH FORMSPREE -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
@@ -216,20 +228,29 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <!-- FORMSPREE FORM - WILL SEND TO YOUR EMAIL -->
+                    <form id="contactForm" action="https://formspree.io/f/xjggbkjr" method="POST">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Subject" required>
+                            <input type="text" name="subject" placeholder="Subject" required>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                         </div>
+                        <!-- Honeypot for spam prevention -->
+                        <input type="text" name="_gotcha" style="display:none">
+                        <!-- Redirect after submit -->
+                        <input type="hidden" name="_next" value="https://yourusername.github.io/your-repo/#contact">
+                        <!-- Subject for emails -->
+                        <input type="hidden" name="_subject" value="New message from portfolio website">
+                        
                         <button type="submit" class="btn btn-primary">Send Message</button>
+                        <div id="form-message" style="margin-top: 15px; display: none;"></div>
                     </form>
                 </div>
             </div>
@@ -252,7 +273,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
